@@ -1,0 +1,258 @@
+@import 'tailwindcss';
+
+/* ────────────────────────────────────────────────────────────
+   Design tokens
+   ──────────────────────────────────────────────────────────── */
+@theme {
+  /* ── Tier 1: primitives — raw values, named after what they are ───────── */
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-btc-50: #fff4e5;
+  --color-btc-200: #ffd39a;
+  --color-btc-300: #ffb347;
+  --color-btc: #f7931a;
+  --color-btc-600: #d97a0c;
+  --color-btc-700: #a35a08;
+  --color-btc-900: #40260a;
+  --color-btc-950: #21150a;
+  --color-mint: #3ddc97;
+
+  --color-void: #040405;
+  --color-ink: #08080a;
+  --color-panel: #0d0d10;
+  --color-panel-2: #131317;
+  --color-panel-3: #1a1a20;
+
+  --color-fg: #f2f2f3;
+  --color-fg-soft: #cfcfd6;
+  --color-fg-muted: #9b9ba4;
+  --color-fg-faint: #63636d;
+
+  --color-line: oklch(1 0 0 / 8%);
+  --color-line-strong: oklch(1 0 0 / 14%);
+
+  --text-meta: 13px;
+  --text-body: 14px;
+  --text-lede: 17px;
+
+  --radius-card: 14px;
+  --shadow-lift: 0 1px 0 0 oklch(1 0 0 / 6%) inset, 0 24px 60px -24px oklch(0 0 0 / 90%);
+  --shadow-glow: 0 0 0 1px oklch(0.78 0.16 62 / 22%), 0 20px 70px -30px oklch(0.78 0.16 62 / 55%);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ────────────────────────────────────────────────────────────
+   Base
+   ──────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-btc);
+    color: #0a0a0a;
+  }
+
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-btc);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Anchored sections clear the sticky header */
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #26262c;
+    border-radius: 99px;
+    border: 3px solid var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a44;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Utilities
+   ──────────────────────────────────────────────────────────── */
+@utility container-page {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Frosted panel used by every card */
+@utility panel {
+  background:
+    linear-gradient(180deg, oklch(1 0 0 / 3.5%), oklch(1 0 0 / 1%)),
+    var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+@utility panel-glow {
+  background:
+    radial-gradient(120% 100% at 50% 0%, oklch(0.78 0.16 62 / 10%), transparent 62%),
+    linear-gradient(180deg, oklch(1 0 0 / 3%), oklch(1 0 0 / 0.6%)),
+    var(--color-panel);
+  border: 1px solid oklch(0.78 0.16 62 / 26%);
+  border-radius: var(--radius-card);
+}
+
+@utility meta-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+/* Small uppercase mono eyebrow/label */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Big display headline */
+@utility display {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+@utility text-gradient-btc {
+  background: linear-gradient(96deg, #ffcb8a 0%, #f7931a 46%, #ffb347 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline divider that fades at both ends */
+@utility rule-fade {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-line-strong) 18%,
+    var(--color-line-strong) 82%,
+    transparent
+  );
+}
+
+@utility panel-interactive {
+  transition: border-color 300ms;
+  &:hover {
+    border-color: var(--color-line-strong);
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   Motion
+   ──────────────────────────────────────────────────────────── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 oklch(0.78 0.16 62 / 45%);
+  }
+  60% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 6px oklch(0.78 0.16 62 / 0%);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+/* Scroll-reveal: elements start hidden, `.is-in` plays them in */
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+.reveal.is-in {
+  animation: reveal-up 0.75s var(--ease-out-expo) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
