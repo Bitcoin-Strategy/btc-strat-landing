@@ -22,3 +22,7 @@ npm run dev
 | `npm run deploy` | Build and deploy with Wrangler |
 
 Page copy lives in [`src/content/site.ts`](src/content/site.ts).
+
+## License
+
+[MIT](LICENSE)
