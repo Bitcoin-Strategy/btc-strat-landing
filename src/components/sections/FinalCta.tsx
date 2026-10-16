@@ -2,6 +2,7 @@ import { ICONS } from '@/lib/icons';
 import { FINAL_CTA } from '@/content/site';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
+import { SocialLinks } from '@/components/ui/SocialLinks';
 
 export function FinalCta() {
   return (
@@ -53,6 +54,10 @@ export function FinalCta() {
                 );
               })}
             </div>
+          </Reveal>
+
+          <Reveal delay={300}>
+            <SocialLinks variant="inline" className="mt-8 flex-wrap justify-center" />
           </Reveal>
         </div>
       </div>

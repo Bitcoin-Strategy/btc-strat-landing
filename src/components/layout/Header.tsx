@@ -4,6 +4,7 @@ import { cn } from '@/lib/cn';
 import { BRAND, NAV } from '@/content/site';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
+import { SocialLinks } from '@/components/ui/SocialLinks';
 import { Logo } from './Logo';
 
 const SECTION_IDS = NAV.map((n) => n.id);
@@ -39,7 +40,7 @@ export function Header() {
           <Logo withTagline className="shrink-0" />
 
           {/* Shown only where it fits without wrapping into the wordmark. */}
-          <nav className="hidden items-center gap-6 xl:flex" aria-label="Sections">
+          <nav className="hidden items-center gap-5 xl:flex" aria-label="Sections">
             {NAV.map((item) => {
               const isActive = active === item.id;
               return (
@@ -64,6 +65,8 @@ export function Header() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <SocialLinks className="hidden md:flex" />
+
             <span className="hidden items-center gap-1.5 rounded-lg border border-line bg-panel px-2.5 py-1.5 font-mono text-xs leading-tight text-fg-muted sm:inline-flex">
               <span className="size-2 shrink-0 rounded-full bg-amber-500/80 animate-pulse" />
               <span className="block max-w-[5.5rem] text-center">{BRAND.status}</span>
@@ -130,6 +133,12 @@ export function Header() {
               {item.soon && <span className="label-mono text-btc">Soon</span>}
             </a>
           ))}
+
+          <SocialLinks
+            variant="inline"
+            className="mt-6 flex-wrap"
+            onNavigate={() => setOpen(false)}
+          />
 
           <div className="label-mono mt-6 flex items-center gap-2 text-fg-faint">
             <span className="size-1.5 rounded-full bg-btc" />

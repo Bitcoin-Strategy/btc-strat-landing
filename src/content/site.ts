@@ -12,6 +12,32 @@ export const BRAND = {
   footerNote: 'Rules-Based Treasury Coordination',
 } as const;
 
+export type SocialLink = {
+  id: 'x' | 'github';
+  label: string;
+  handle: string;
+  href: string;
+  /** Call-to-action copy for the labelled variant of `SocialLinks`. */
+  cta: string;
+};
+
+export const SOCIAL: readonly SocialLink[] = [
+  {
+    id: 'x',
+    label: 'X (Twitter)',
+    handle: '@BTCStrategyCoin',
+    href: 'https://x.com/BTCStrategyCoin',
+    cta: 'Follow on X',
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    handle: 'Bitcoin-Strategy',
+    href: 'https://github.com/Bitcoin-Strategy',
+    cta: 'Source on GitHub',
+  },
+];
+
 export type NavItem = { id: string; label: string; soon?: boolean };
 
 export const NAV: readonly NavItem[] = [
@@ -89,7 +115,8 @@ export const WHY = {
       featured: true,
     },
   ],
-  footnote: '50M STRAT stays fixed. If the treasury grows, BTC backing and NAV per STRAT grow with it.',
+  footnote:
+    '50M STRAT stays fixed. If the treasury grows, BTC backing and NAV per STRAT grow with it.',
 } as const;
 
 export const STAIRCASE = {
@@ -306,10 +333,16 @@ export const PREMIUM = {
 } as const;
 
 const TREASURY_METRICS: readonly Metric[] = [
-    { label: 'Treasury BTC', tag: 'Placeholder', unit: 'BTC', foot: 'Onchain Bitcoin Custody' },
-    { label: 'Treasury USD Value', tag: 'Placeholder', unit: 'USD', foot: 'Mark-to-Market Reserves' },
-    { label: 'BTC per STRAT', tag: 'Backing', unit: 'BTC', foot: 'Bitcoin per 1 STRAT', accent: true },
-    { label: 'NAV per STRAT', tag: 'USD', unit: 'USD', foot: 'Treasury / 50M Max Supply' },
+  { label: 'Treasury BTC', tag: 'Placeholder', unit: 'BTC', foot: 'Onchain Bitcoin Custody' },
+  { label: 'Treasury USD Value', tag: 'Placeholder', unit: 'USD', foot: 'Mark-to-Market Reserves' },
+  {
+    label: 'BTC per STRAT',
+    tag: 'Backing',
+    unit: 'BTC',
+    foot: 'Bitcoin per 1 STRAT',
+    accent: true,
+  },
+  { label: 'NAV per STRAT', tag: 'USD', unit: 'USD', foot: 'Treasury / 50M Max Supply' },
 ];
 
 export const TREASURY = {

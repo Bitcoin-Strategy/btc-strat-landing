@@ -12,6 +12,8 @@ import {
   TrendingUp,
   Zap,
 } from 'lucide-react';
+import { GitHubIcon, XIcon } from '@/components/ui/BrandIcon';
+import type { SocialLink } from '@/content/site';
 
 export const ICONS = {
   activity: Activity,
@@ -29,3 +31,8 @@ export const ICONS = {
 } as const;
 
 export type IconName = keyof typeof ICONS;
+
+export const BRAND_ICONS = {
+  x: XIcon,
+  github: GitHubIcon,
+} as const satisfies Record<SocialLink['id'], typeof XIcon>;
